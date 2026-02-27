@@ -168,7 +168,6 @@ Para la validación del taller:
 - Cliente ejecutándose en otra máquina
 - Conexión mediante IP real
 - Operaciones exitosas entre nodos
-
 - link Video: https://drive.google.com/file/d/111_ZIPO7beguF9903jV2GrLotwukdgLI/view?usp=sharing
 
 ---
