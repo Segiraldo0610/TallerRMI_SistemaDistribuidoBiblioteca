@@ -20,10 +20,12 @@ proyecto/
 │
 └── cliente/             * El cliente con interfaz
     └── app/
-        └── src/main/java/com/example/cliente/
-            ├── BibliotecaGUI.java
-            └── ClienteMain.java
-
+    │     └── src/main/java/com/example/cliente/
+    │         ├── BibliotecaGUI.java
+    │         └── ClienteMain.java
+    │ 
+    └── proto/
+        └──library.proto
 
 
 
