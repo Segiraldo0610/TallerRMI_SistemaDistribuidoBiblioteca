@@ -1,95 +1,183 @@
-Sistema de Biblioteca con gRPC
+# 📚 Sistema de Biblioteca Distribuido con gRPC
+*Taller de Sistemas Distribuidos — Febrero 2026*
 
-Taller de Sistemas Distribuidos — Febrero 2026  
-Hecho por: Jose Guerrero - Samuel Giraldo - Marianne Coy - Daniel Diaz
-
-Este proyecto es un sistema de préstamos de biblioteca. Tiene un servidor en Java con gRPC y una base de datos SQLite, y un cliente con interfaz gráfica hecha en Java Swing.
+👨‍💻 *Integrantes*
+- Jose Guerrero  
+- Samuel Giraldo  
+- Marianne Coy  
+- Daniel Diaz  
 
 ---
 
-Cómo está organizado
+## 📖 Descripción del Proyecto
 
-```
+Este proyecto implementa un *sistema distribuido de gestión de préstamos de biblioteca* utilizando arquitectura *Cliente–Servidor*.
+
+El sistema permite consultar, prestar y devolver libros mediante comunicación remota usando *gRPC*.
+
+- 🔹 El *Servidor* administra la lógica del sistema y la base de datos.
+- 🔹 El *Cliente* consume los servicios remotamente mediante una interfaz gráfica.
+- 🔹 Ambos se ejecutan en *computadores diferentes*, demostrando comunicación distribuida real.
+
+---
+
+## 🏗 Arquitectura del Sistema
+
+
+                 ┌────────────────────┐
+                 │     CLIENTE GUI     │
+                 │   (Java Swing)     │
+                 └─────────┬──────────┘
+                           │ gRPC
+                           │
+                    Red / TCP-IP
+                           │
+                 ┌─────────▼──────────┐
+                 │      SERVIDOR       │
+                 │   gRPC + Java       │
+                 │                     │
+                 │   SQLite Database   │
+                 └─────────────────────┘
+
+
+---
+
+## 📂 Estructura del Proyecto
+
+
 proyecto/
-├── server/              * El servidor
+│
+├── server/
 │   ├── db/
 │   │   └── biblioteca.db
 │   └── src/main/resources/
 │       ├── schema.sql
 │       └── seed.sql
 │
-└── cliente/             * El cliente con interfaz
-    └── app/
-    │     └── src/main/java/com/example/cliente/
-    │         ├── BibliotecaGUI.java
-    │         └── ClienteMain.java
-    │ 
+└── cliente/
+    ├── app/
+    │   └── src/main/java/com/example/cliente/
+    │       ├── BibliotecaGUI.java
+    │       └── ClienteMain.java
+    │
     └── proto/
-        └──library.proto
+        └── library.proto
 
 
+---
 
-Cómo correr el servidor
+## 🚀 Ejecución del Sistema
 
-Esto va en la PC que hace de servidor.
+### 🖥️ 1. Ejecutar el Servidor
 
-   bash
+📍 *Debe ejecutarse en el computador servidor*
+
+bash
 cd server
 mvn clean package
 mvn exec:java -Dexec.args="50051"
-```
 
-La base de datos se crea sola la primera vez. Queda escuchando en el puerto 50051.
+
+✅ Características:
+
+- La base de datos SQLite se crea automáticamente.
+- El servidor queda escuchando en el puerto *50051*.
+- Centraliza toda la lógica del sistema.
 
 ---
 
-Cómo correr el cliente
+### 💻 2. Ejecutar el Cliente
 
-Esto va en la otra PC, que tenga interfaz gráfica.
+📍 *Debe ejecutarse en otro computador*
 
-```bash
+bash
 cd cliente/app
 mvn compile
 mvn exec:java
-```
 
-Cuando abra la ventana, poner la IP del servidor y el puerto 50051, luego clic en Conectar.
 
----
+Al iniciar:
 
-Qué puede hacer
-
-- **Consultar libro por ISBN** — dice si existe y cuántos ejemplares hay
-- **Prestar por ISBN** — registra el préstamo y da la fecha de devolución (7 días)
-- **Prestar por Título** — lo mismo pero buscando por nombre del libro
-- **Devolver libro** — registra la devolución y actualiza los ejemplares
-
-Todo funciona de forma síncrona.
+1. Ingresar la *IP del servidor*
+2. Puerto: 50051
+3. Presionar *Conectar*
 
 ---
 
-Libros que tiene el sistema
+## ⚙️ Funcionalidades Implementadas
 
-| ISBN 		| Título |
-|------		|--------|
-| 9780307474278 | — |
-| 9788437604947 | — |
-| 9788466333978 | — |
-| 9780060883287 | — |
-| 9789500721507 | — |
+✅ *Consultar libro por ISBN*
+- Verifica existencia
+- Muestra ejemplares disponibles
 
----
+✅ *Préstamo por ISBN*
+- Registra préstamo
+- Genera fecha de devolución automática (7 días)
 
-Tecnologías usadas
+✅ *Préstamo por Título*
+- Búsqueda alternativa del libro
 
-- Java 17
-- Maven
-- gRPC y Protocol Buffers
-- SQLite
-- Java Swing
+✅ *Devolución de Libro*
+- Actualiza disponibilidad en tiempo real
+
+Todas las operaciones se realizan mediante *RPC síncrono*.
 
 ---
 
-Para probar con dos clientes
+## 📚 Libros Iniciales del Sistema
 
-Abrir dos terminales en la PC cliente y correr `mvn exec:java` en cada una. Las dos se conectan al mismo servidor.
+| ISBN | Título |
+|------|--------|
+| 9780307474278 | Libro 1 |
+| 9788437604947 | Libro 2 |
+| 9788466333978 | Libro 3 |
+| 9780060883287 | Libro 4 |
+| 9789500721507 | Libro 5 |
+
+---
+
+## 🧰 Tecnologías Utilizadas
+
+- ☕ Java 17  
+- 📦 Maven  
+- 🔗 gRPC  
+- 📜 Protocol Buffers  
+- 🗄 SQLite  
+- 🖥 Java Swing  
+
+---
+
+## 🌐 Características de Sistemas Distribuidos
+
+Este proyecto demuestra:
+
+- ✔ Arquitectura Cliente–Servidor  
+- ✔ Comunicación remota mediante RPC  
+- ✔ Separación cliente / servidor  
+- ✔ Base de datos centralizada  
+- ✔ Ejecución en múltiples computadores  
+- ✔ Servicios distribuidos sobre red TCP/IP  
+
+---
+
+## 📸 Evidencia Esperada
+
+Para la validación del taller:
+
+- Servidor ejecutándose en una máquina
+- Cliente ejecutándose en otra máquina
+- Conexión mediante IP real
+- Operaciones exitosas entre nodos
+
+---
+
+## ✅ Estado del Proyecto
+
+✔ Implementación completa  
+✔ Comunicación distribuida funcional  
+✔ Interfaz gráfica operativa  
+✔ Persistencia en base de datos  
+
+---
+
+⭐ *Proyecto desarrollado para la asignatura Sistemas Distribuidos — 2026*
